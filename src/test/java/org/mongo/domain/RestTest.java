@@ -61,6 +61,17 @@ public  class RestTest {
 	            .content(value).contentType(MediaType.APPLICATION_JSON)).andReturn(); // <-- sets the request content
 		logger.info(andReturn.getResponse().getContentAsString());
 	}
+	
+
+	@Test
+	public void mockGetWordById() throws Exception {
+		MvcResult andReturn = this.mvc
+				.perform(get("/words/526e8ae8e4b048ded05411eb").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		logger.info("response as string:"
+				+ andReturn.getResponse().getContentAsString());
+	}
+	
 	@Test
 	public void mockGetWords() throws Exception {
 		MvcResult andReturn = this.mvc
