@@ -64,7 +64,7 @@ public  class RestTest {
 	@Test
 	public void mockGetWords() throws Exception {
 		MvcResult andReturn = this.mvc
-				.perform(get("/words?size=1").accept(MediaType.APPLICATION_JSON))
+				.perform(get("/words?size=5").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		logger.info("response as string:"
 				+ andReturn.getResponse().getContentAsString());

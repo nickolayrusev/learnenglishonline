@@ -1,5 +1,6 @@
 package org.mongo.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.mongo.domain.Word;
@@ -46,6 +47,7 @@ public class HomeController {
 	public @ResponseBody
 	ResponseEntity<List<Word>> get(@RequestParam(required = false, value = "size", defaultValue = "10") Integer size) {
 		List<Word> all = wordService.getAll(size);
+		Collections.shuffle(all);
 		return new ResponseEntity<List<Word>>(all, HttpStatus.OK);
 	}
 	
