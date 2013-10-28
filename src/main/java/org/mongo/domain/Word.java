@@ -2,6 +2,9 @@ package org.mongo.domain;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="word")
 public class Word extends BaseMongoObject {
 	private String englishValue;
 	private String type;

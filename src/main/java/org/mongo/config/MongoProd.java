@@ -39,7 +39,7 @@ public class MongoProd implements MongoConfig {
 	@Override
 	public MongoDbFactory mongoDbFactory() throws MongoException,
 			UnknownHostException {
-		MongoDbFactory factory = new SimpleMongoDbFactory(new MongoURI(env.getProperty("mongo_uri.dev")));
+		MongoDbFactory factory = new SimpleMongoDbFactory(new MongoURI(env.getProperty("mongo_uri.heroku")));
 		return factory;
 	}
 
