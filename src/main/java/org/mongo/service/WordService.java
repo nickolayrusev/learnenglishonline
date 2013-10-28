@@ -26,5 +26,16 @@ public class WordService {
 		List<Word> wordList = mongoOperations.find(query, Word.class);
 		return wordList;
 	}
-
+	
+	public Word getById(String id) {
+		Word findOne = wordRepository.findOne(id);
+		return findOne;
+	}
+	
+	public Word delete(String id){
+		Word findOne = wordRepository.findOne(id);
+		wordRepository.delete(findOne);
+		return findOne;
+		
+	}
 }
