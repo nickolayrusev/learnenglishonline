@@ -81,4 +81,13 @@ public  class RestTest {
 				+ andReturn.getResponse().getContentAsString());
 	}
 	
+	@Test
+	public void mockGetWordsWithFilter() throws Exception {
+		MvcResult andReturn = this.mvc
+				.perform(get("/words?filter=cu").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		logger.info("response as string:"
+				+ andReturn.getResponse().getContentAsString());
+	}
+	
 }

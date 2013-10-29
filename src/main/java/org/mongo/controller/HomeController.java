@@ -45,8 +45,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "/words", method = RequestMethod.GET)
 	public @ResponseBody
-	ResponseEntity<List<Word>> get(@RequestParam(required = false, value = "size", defaultValue = "10") Integer size) {
-		List<Word> all = wordService.getAll(size);
+	ResponseEntity<List<Word>> get(
+			@RequestParam(required = false, value = "size", defaultValue = "10") Integer size,
+			@RequestParam(required = false, value = "filter") String filter) {
+		List<Word> all = wordService.getAll(size,filter);
 		Collections.shuffle(all);
 		return new ResponseEntity<List<Word>>(all, HttpStatus.OK);
 	}

@@ -6,6 +6,7 @@ import org.mongo.domain.Word;
 import org.mongo.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,12 @@ public class WordService {
 		return wordRepository.save(word);
 	}
 	
-	public List<Word> getAll(int size){
+	public List<Word> getAll(int size,String filter){
+		if(filter!=null){
+			Query query = new Query().addCriteria(Criteria.where("englishValue").regex(filter,"i")).limit(size);
+			List<Word> wordList = mongoOperations.find(query, Word.class);
+			return wordList;
+		}
 		Query query = new Query().limit(size);
 		List<Word> wordList = mongoOperations.find(query, Word.class);
 		return wordList;

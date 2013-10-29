@@ -21,7 +21,7 @@ public class CORSFilter extends OncePerRequestFilter {
 	            // CORS "pre-flight" request
 	            response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
 	            response.addHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With, Author, Origin");
-	            response.addHeader("Access-Control-Max-Age", "18");//30 min
+	            response.addHeader("Access-Control-Max-Age", "1800");//30 min
 	        }
 	        filterChain.doFilter(request, response);
 	    }
