@@ -37,7 +37,6 @@ public class WordService {
 		}else{
 			long count = allWordsCount - size;
 			int skip =  (int) Math.round( (Math.random() * (count)) ) ;
-			System.out.println("starting from: " + skip);
 			query = new Query().limit(-1).skip(skip).limit(size);
 			List<Word> wordList = mongoOperations.find(query, Word.class);
 			return wordList;
