@@ -18,8 +18,6 @@ public class WordService {
 	@Autowired
 	MongoOperations mongoOperations;
 	
-//	private static final Integer skipWords = 10;
-
 	public Word saveOrUpdate(Word word){
 		return wordRepository.save(word);
 	}
@@ -33,13 +31,12 @@ public class WordService {
 		}
 		
 		long allWordsCount = wordRepository.count() ;
-		
+		System.out.println("allWordsCount is: "+allWordsCount);
 		if(allWordsCount < size){
 			query = new Query();
 		}else{
 			long count = allWordsCount - size;
-			int skip = (int) Math.floor( (Math.random() * count) ) ;
-			
+			int skip = (int) Math.floor( (Math.random() * (count)) ) + 1 ;
 			query = new Query().limit(-1).skip(skip).limit(size);
 			List<Word> wordList = mongoOperations.find(query, Word.class);
 			return wordList;

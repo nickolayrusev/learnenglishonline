@@ -75,7 +75,7 @@ public  class RestTest {
 	@Test
 	public void mockGetWords() throws Exception {
 		MvcResult andReturn = this.mvc
-				.perform(get("/words?size=2").accept(MediaType.APPLICATION_JSON))
+				.perform(get("/words?size=10").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		logger.info("response as string:"
 				+ andReturn.getResponse().getContentAsString());
@@ -88,6 +88,13 @@ public  class RestTest {
 				.andExpect(status().isOk()).andReturn();
 		logger.info("response as string:"
 				+ andReturn.getResponse().getContentAsString());
+	}
+	@Test
+	public void testRandomGeneration() throws Exception {
+		for(int i=0;i<100;i++){
+			logger.info("number is: " + (int) Math.floor( Math.random() * 5)) ;
+	
+		}
 	}
 	
 }
