@@ -17,20 +17,37 @@ public class WordService {
 	
 	@Autowired
 	MongoOperations mongoOperations;
+	
+//	private static final Integer skipWords = 10;
 
 	public Word saveOrUpdate(Word word){
 		return wordRepository.save(word);
 	}
 	
 	public List<Word> getAll(int size,String filter){
+		Query query = new Query();
 		if(filter!=null){
-			Query query = new Query().addCriteria(Criteria.where("englishValue").regex(filter,"i")).limit(size);
+			query = new Query().addCriteria(Criteria.where("englishValue").regex(filter,"i")).limit(size);
 			List<Word> wordList = mongoOperations.find(query, Word.class);
 			return wordList;
 		}
-		Query query = new Query().limit(size);
+		
+		long allWordsCount = wordRepository.count() ;
+		
+		if(allWordsCount < size){
+			query = new Query();
+		}else{
+			long count = allWordsCount - size;
+			int skip = (int) Math.floor( (Math.random() * count) ) ;
+			
+			query = new Query().limit(-1).skip(skip).limit(size);
+			List<Word> wordList = mongoOperations.find(query, Word.class);
+			return wordList;
+		}
+		
 		List<Word> wordList = mongoOperations.find(query, Word.class);
 		return wordList;
+		
 	}
 	
 	public Word getById(String id) {
