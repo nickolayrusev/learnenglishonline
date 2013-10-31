@@ -61,7 +61,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
-	public List<String> getTags() {
+	public @ResponseBody List<String> getTags() {
 		List<String> allTags = wordService.getAllTags();
 		return allTags;
 	}
