@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
@@ -30,6 +31,7 @@ public class MongoProd implements MongoConfig {
 	
 	@Autowired
 	Environment env;
+	
 	@Override
 	public FactoryBean<Mongo> factoryBean() {
 		// TODO Auto-generated method stub
@@ -44,11 +46,12 @@ public class MongoProd implements MongoConfig {
 	}
 
 	@Override
-	public MongoOperations mongoTemplate() throws MongoException,
-			UnknownHostException {
-		// TODO Auto-generated method stub
-		return null;
+	@Bean
+	public MongoOperations mongoTemplate() throws MongoException, UnknownHostException {
+		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
+		return mongoTemplate;
 	}
+	
 	@Override
 	@Bean
 	public GridFsOperations gridFsTemplate() throws MongoException, UnknownHostException {
