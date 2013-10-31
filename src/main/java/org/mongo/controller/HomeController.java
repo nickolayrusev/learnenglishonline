@@ -65,6 +65,12 @@ public class HomeController {
 		List<String> allTags = wordService.getAllTags();
 		return allTags;
 	}
+
+	@RequestMapping(value = "/ad", method = RequestMethod.GET)
+	public @ResponseBody List<String> ad() {
+		List<String> allTags = wordService.getAllTags();
+		return allTags;
+	}
 	
 	
 	@ExceptionHandler(IllegalArgumentException.class)
