@@ -15,6 +15,7 @@ import org.mongo.config.JacksonMessageConverterRaw;
 import org.mongo.config.RootConfig;
 import org.mongo.config.WebConfig;
 import org.mongo.interceptor.WebContextFilter;
+import org.mongo.service.WordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +41,20 @@ public  class RestTest {
 	@Autowired
 	private WebApplicationContext wac;
 
+	@Autowired
+	private WordService wordService;
+
 	private MockMvc mvc;
 
 	@Before
 	public void setUp() {
 		this.mvc = webAppContextSetup(this.wac).addFilters(new WebContextFilter()).build();
 	}
-
+	
+	@Test
+	public void testDeleteEmptyWords() throws Exception {
+		wordService.deleteEmptyWords();
+	}
 	
 	@Test
 	public void mockPerformWordPost() throws Exception{

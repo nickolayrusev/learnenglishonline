@@ -71,4 +71,16 @@ public class WordService {
 		return findOne;
 		
 	}
+	public long deleteEmptyWords(){
+		long counter = 0;
+		Query query = new Query();
+		List<Word> find = mongoOperations.find(query, Word.class);
+		for (Word word : find) {
+			if(word.getEnglishValue() == null || word.getEnglishValue().isEmpty()){
+				delete(String.valueOf(word.getId()));
+				counter ++;
+			}
+		}
+		return counter;
+	}
 }
