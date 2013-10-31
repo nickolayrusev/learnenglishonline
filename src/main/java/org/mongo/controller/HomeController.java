@@ -59,10 +59,11 @@ public class HomeController {
 		Word deletedWord = wordService.delete(id);
 		return new ResponseEntity<Word>(deletedWord, HttpStatus.OK);
 	}
+	
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
 	public List<String> getTags() {
-		// TODO Auto generated method stub
-		return null;
+		List<String> allTags = wordService.getAllTags();
+		return allTags;
 	}
 	
 	
