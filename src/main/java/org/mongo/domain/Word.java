@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="word")
 public class Word extends BaseMongoObject {
 	private String englishValue;
-	private String type;
 	private List<String> bulgarianValues;
+	private List<String> tags;
 	
 	public String getEnglishValue() {
 		return englishValue;
@@ -16,18 +16,17 @@ public class Word extends BaseMongoObject {
 	public void setEnglishValue(String englishValue) {
 		this.englishValue = englishValue;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
 	public List<String> getBulgarianValues() {
 		return bulgarianValues;
 	}
 	public void setBulgarianValues(List<String> bulgarianValues) {
 		this.bulgarianValues = bulgarianValues;
 	}
-	
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 	
 }

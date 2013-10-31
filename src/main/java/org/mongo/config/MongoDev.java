@@ -55,6 +55,7 @@ public class MongoDev implements MongoConfig{
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
 		return mongoTemplate;
 	}
+	
 	@Override
 	@Bean
 	public GridFsOperations gridFsTemplate() throws MongoException, UnknownHostException {

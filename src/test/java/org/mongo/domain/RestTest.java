@@ -51,9 +51,9 @@ public  class RestTest {
 	@Test
 	public void mockPerformWordPost() throws Exception{
 		Word word = new Word();
-		word.setBulgarianValues(Arrays.asList("котка"));
-		word.setEnglishValue("cat");
-		word.setType("noun");
+		word.setBulgarianValues(Arrays.asList("слънчоглед"));
+		word.setEnglishValue("sunflower");
+		word.setTags(Arrays.asList("Flower","Plant","noun"));
 		
 		String value = new ObjectMapper().writeValueAsString(word);
 		logger.info("request body:"+value);

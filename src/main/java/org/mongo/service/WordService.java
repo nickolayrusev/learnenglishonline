@@ -31,7 +31,6 @@ public class WordService {
 		}
 		
 		long allWordsCount = wordRepository.count() ;
-		System.out.println("allWordsCount is: "+allWordsCount);
 		if(allWordsCount < size){
 			query = new Query();
 		}else{
@@ -50,6 +49,11 @@ public class WordService {
 	public Word getById(String id) {
 		Word findOne = wordRepository.findOne(id);
 		return findOne;
+	}
+	
+	public List<String> getAllTags(){
+		List<String> distinct = mongoOperations.getCollection("word").distinct("tags");
+		return distinct;
 	}
 	
 	public Word delete(String id){
