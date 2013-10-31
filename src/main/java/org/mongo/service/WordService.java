@@ -2,7 +2,6 @@ package org.mongo.service;
 
 import java.util.List;
 
-import org.mongo.domain.RestTest;
 import org.mongo.domain.Word;
 import org.mongo.repository.WordRepository;
 import org.slf4j.Logger;
