@@ -9,6 +9,6 @@ public class ContextProfileInitializer implements ApplicationContextInitializer<
 	@Override
 	public void initialize(ConfigurableWebApplicationContext ctx) {
 		ConfigurableEnvironment environment = ctx.getEnvironment();
-		environment.setActiveProfiles("dev");
+		environment.setActiveProfiles("prod");
 	}
 }
