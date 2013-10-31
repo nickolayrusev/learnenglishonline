@@ -47,8 +47,9 @@ public class HomeController {
 	public @ResponseBody
 	ResponseEntity<List<Word>> get(
 			@RequestParam(required = false, value = "size", defaultValue = "10") Integer size,
-			@RequestParam(required = false, value = "filter") String filter) {
-		List<Word> all = wordService.getAll(size,filter);
+			@RequestParam(required = false, value = "filter") String filter,
+			@RequestParam(required = false, value = "tags") List<String> tags) {
+		List<Word> all = wordService.getAll(size,filter, tags);
 		Collections.shuffle(all);
 		return new ResponseEntity<List<Word>>(all, HttpStatus.OK);
 	}
@@ -59,18 +60,13 @@ public class HomeController {
 		Word deletedWord = wordService.delete(id);
 		return new ResponseEntity<Word>(deletedWord, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
 	public @ResponseBody List<String> getTags() {
 		List<String> allTags = wordService.getAllTags();
 		return allTags;
 	}
 
-	@RequestMapping(value = "/ad", method = RequestMethod.GET)
-	public @ResponseBody List<String> ad() {
-		List<String> allTags = wordService.getAllTags();
-		return allTags;
-	}
 	
 	
 	@ExceptionHandler(IllegalArgumentException.class)

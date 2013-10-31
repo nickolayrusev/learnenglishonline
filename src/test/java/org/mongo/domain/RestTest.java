@@ -51,8 +51,8 @@ public  class RestTest {
 	@Test
 	public void mockPerformWordPost() throws Exception{
 		Word word = new Word();
-		word.setBulgarianValues(Arrays.asList("слънчоглед"));
-		word.setEnglishValue("sunflower");
+		word.setBulgarianValues(Arrays.asList("теменужка"));
+		word.setEnglishValue("violet");
 		word.setTags(Arrays.asList("Flower","Plant","noun"));
 		
 		String value = new ObjectMapper().writeValueAsString(word);
@@ -84,11 +84,22 @@ public  class RestTest {
 	@Test
 	public void mockGetWordsWithFilter() throws Exception {
 		MvcResult andReturn = this.mvc
-				.perform(get("/words?filter=cu").accept(MediaType.APPLICATION_JSON))
+				.perform(get("/words?size=1&filter=cu").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		logger.info("response as string:"
 				+ andReturn.getResponse().getContentAsString());
 	}
+	
+	@Test
+	public void mockGetWordsByTags() throws Exception {
+		MvcResult andReturn = this.mvc
+			.perform(get("/words?tags=Flower,noun").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk()).andReturn();
+		logger.info("response as string:"
+				+ andReturn.getResponse().getContentAsString());
+	}
+	
+	
 	@Test
 	public void testRandomGeneration() throws Exception {
 		for(int i=0;i<100;i++){

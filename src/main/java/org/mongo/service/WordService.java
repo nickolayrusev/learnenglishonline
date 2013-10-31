@@ -2,8 +2,11 @@ package org.mongo.service;
 
 import java.util.List;
 
+import org.mongo.domain.RestTest;
 import org.mongo.domain.Word;
 import org.mongo.repository.WordRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -22,29 +25,36 @@ public class WordService {
 		return wordRepository.save(word);
 	}
 	
-	public List<Word> getAll(int size,String filter){
+	private static final Logger logger = LoggerFactory.getLogger(WordService.class);
+	
+	public List<Word> getAll (int size, String filter, List<String> tags){
 		Query query = new Query();
-		if(filter!=null){
-			query = new Query().addCriteria(Criteria.where("englishValue").regex(filter,"i")).limit(size);
-			List<Word> wordList = mongoOperations.find(query, Word.class);
-			return wordList;
+
+		logger.info("size " + size);
+		logger.info("filter " + filter);
+		logger.info("tags " + tags);
+		
+		if(filter != null) {
+			logger.info("filter by filter...");
+			query.addCriteria(Criteria.where("englishValue").regex(filter,"i"));
 		}
-		
-		long allWordsCount = wordRepository.count() ;
-		if(allWordsCount < size){
-			query = new Query();
-		}else{
-			long count = allWordsCount - size;
-			int skip =  (int) Math.round( (Math.random() * (count)) ) ;
-			query = new Query().limit(-1).skip(skip).limit(size);
-			List<Word> wordList = mongoOperations.find(query, Word.class);
-			return wordList;
+		if(tags != null && !tags.isEmpty()){
+			logger.info("filter by tags...");
+			query.addCriteria(Criteria.where("tags").in(tags));
 		}
+		long count = mongoOperations.count(query, Word.class);
+		logger.info("count is: " + count);
 		
-		List<Word> wordList = mongoOperations.find(query, Word.class);
-		return wordList;
-		
+		if(size < count) {
+			logger.info("randomize");
+			long skip = Math.round(Math.random() * (count - size));
+			query.limit(-1).skip((int) skip).limit(size);
+		} 
+		List<Word> find = mongoOperations.find(query, Word.class);
+		logger.info("returning... " + find );
+		return find;
 	}
+
 	
 	public Word getById(String id) {
 		Word findOne = wordRepository.findOne(id);
