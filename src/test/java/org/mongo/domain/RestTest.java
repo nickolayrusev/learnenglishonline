@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebAppConfiguration
 @ContextConfiguration(classes={WebConfig.class,RootConfig.class,JacksonMessageConverterPretty.class,JacksonMessageConverterRaw.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 public  class RestTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestTest.class);

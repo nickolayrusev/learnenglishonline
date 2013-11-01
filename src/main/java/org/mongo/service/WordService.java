@@ -38,8 +38,15 @@ public class WordService {
 			query.addCriteria(Criteria.where("englishValue").regex(filter,"i"));
 		}
 		if(tags != null && !tags.isEmpty()){
-			logger.info("filter by tags...");
-			query.addCriteria(Criteria.where("tags").in(tags));
+			Criteria[] crits = new Criteria[tags.size()];
+			   int i = 0;
+			   for (String tag : tags) {
+			    crits[i]=Criteria.where("tags").is(tag);
+			    i++;
+			   }
+			   Criteria c = new Criteria().andOperator(crits);
+			   query.addCriteria(c);
+			   
 		}
 		long count = mongoOperations.count(query, Word.class);
 		logger.info("count is: " + count);
@@ -50,7 +57,7 @@ public class WordService {
 			query.limit(-1).skip((int) skip).limit(size);
 		} 
 		List<Word> find = mongoOperations.find(query, Word.class);
-		logger.info("returning... " + find );
+		logger.info("returning... " + find.size() );
 		return find;
 	}
 
