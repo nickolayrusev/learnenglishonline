@@ -1,7 +1,9 @@
 package org.mongo.domain;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -69,7 +71,20 @@ public  class RestTest {
 	            .content(value).contentType(MediaType.APPLICATION_JSON)).andReturn(); // <-- sets the request content
 		logger.info(andReturn.getResponse().getContentAsString());
 	}
+	@Test
+	public void testPutWord() throws Exception {
+		Word word = new Word();
+		word.setBulgarianValues(Arrays.asList("теменужка"));
+		word.setEnglishValue("violet");
+		word.setTags(Arrays.asList("Flower","Plant","noun"));
+		
+		String value = new ObjectMapper().writeValueAsString(word);
+		logger.info("request body:"+value);
+		MvcResult andReturn = this.mvc.perform(put("/words/21")
+	            .content(value).contentType(MediaType.APPLICATION_JSON)).andReturn(); // <-- sets the request content
+		logger.info(andReturn.getResponse().getContentAsString());
 	
+	}
 
 	@Test
 	public void mockGetWordById() throws Exception {

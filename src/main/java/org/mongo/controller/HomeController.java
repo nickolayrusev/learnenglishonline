@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,7 +64,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/words/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<String> put(ObjectNode node) {
+	public ResponseEntity<String> put( @RequestBody ObjectNode node) {
 		return new ResponseEntity<String>(node.toString(), HttpStatus.OK);
 	}
 
