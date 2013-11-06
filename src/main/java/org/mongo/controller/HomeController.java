@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
@@ -64,8 +65,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/words/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<String> put( @RequestBody ObjectNode node) {
-		return new ResponseEntity<String>(node.toString(), HttpStatus.OK);
+	public ResponseEntity<ObjectNode> put( @RequestBody ObjectNode node) throws JsonProcessingException {
+		logger.info("value is: "+node.toString());
+		//TODO this method should be implemented by Nikolay Karadzhov
+		return new ResponseEntity<ObjectNode>(node, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
