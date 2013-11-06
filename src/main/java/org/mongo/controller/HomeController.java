@@ -65,7 +65,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/words/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<ObjectNode> put( @RequestBody ObjectNode node) throws JsonProcessingException {
+	public ResponseEntity<ObjectNode> put(@PathVariable("id") String id, @RequestBody ObjectNode node) throws JsonProcessingException {
 		logger.info("value is: "+node.toString());
 		//TODO this method should be implemented by Nikolay Karadzhov
 		return new ResponseEntity<ObjectNode>(node, HttpStatus.OK);
