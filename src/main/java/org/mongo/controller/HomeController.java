@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * Handles requests for the application home page.
@@ -59,6 +62,11 @@ public class HomeController {
 	ResponseEntity<Word> delete(@PathVariable("id") String id) {
 		Word deletedWord = wordService.delete(id);
 		return new ResponseEntity<Word>(deletedWord, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/words/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> put(ObjectNode node) {
+		return new ResponseEntity<String>(node.toString(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
