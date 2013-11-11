@@ -82,13 +82,6 @@ public class HomeController {
 		return new ResponseEntity<Word>(word, HttpStatus.OK);
 	}
 
-	private static void changeFieldValue(Object obj, String fieldName,
-			Object fieldValue) {
-		Field findField = ReflectionUtils.findField(obj.getClass(), fieldName);
-		ReflectionUtils.makeAccessible(findField);
-		ReflectionUtils.setField(findField, obj, fieldValue);
-	}
-
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
 	public @ResponseBody
 	List<String> getTags() {
