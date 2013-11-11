@@ -18,4 +18,17 @@ public class CommonUtils {
         }
         return fields;
     }
+	
+	public static void copyProperties(Object dest, Object orig) throws IllegalArgumentException, IllegalAccessException {
+		Class<? extends Object> claz = dest.getClass();
+		Field[] declaredFields = claz.getDeclaredFields();
+		for (Field field : declaredFields) {
+			field.setAccessible(true);
+			Object value = field.get(orig);
+			if(value != null) {
+				field.set(dest, value);
+			}
+		}		
+		
+	}
 }
